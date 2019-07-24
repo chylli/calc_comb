@@ -34,17 +34,19 @@ sub do_calc{
   my ($self, $total, $i, $layer ) = @_;
   $DB::single = 1;
   my $data = $self->sorted_data;
-  say "." x $layer, $data->[$i] // 0;
+  say "." x $layer, $data->[$i] // '';
   say "$total, $i";
+  return ([]) if $total == 0;
   return () if $i > $#$data;
-  # find it! return $i or $data$[i];
-  return ([$data->[$i]]) if $total == $data->[$i];
   # bad comb
   #return () if sum($i+1) < $total - $data->[$i];
   return () if $total < 0;
 
-  # the results that include this one
   my @total_result;
+    # find it! return $i or $data$[i];
+ # push @total_result, [$data->[$i]] if $total == $data->[$i];
+
+  # the results that include this one
   my @result = $self->do_calc($total - $data->[$i], $i+1, $layer+1);
   for my $r (@result){
     # unshift $data->[$i] or [$i];
