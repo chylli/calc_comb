@@ -22,7 +22,7 @@ sub do_calc{
   say "." x $layer, $data->[$i] // '' if $DEBUG;
   say "$total, $i" if $DEBUG;
 
-  # the numbers before this one is the answer, no need to check more
+  # the numbers before this one are the answer, no need to check more
   return ([]) if $total == 0;
   #no result
   return () if $i > $#$data || $total < 0;
@@ -37,6 +37,7 @@ sub do_calc{
   }
   push @total_result, @result;
 
+  # the results that not include this one
   @result = $self->do_calc($total, $i+1, $layer+1);
   push @total_result, @result;
 
